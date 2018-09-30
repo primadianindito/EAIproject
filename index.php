@@ -14,11 +14,9 @@
     
     <div class="fl_left">
     <?php
-
           $queryss = @unserialize (file_get_contents('http://ip-api.com/php/'));
           if ($queryss && $queryss['status'] == 'success') {
           }
-
           $json = file_get_contents("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22".$queryss['city']."%22)and%20u%3D%22c%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys");
                 
           $data = json_decode($json);
@@ -70,16 +68,13 @@
 
               echo $data->query->results->channel->location->city . ", ";
               echo $data->query->results->channel->location->region. ", ";
-              echo $data->query->results->channel->location->country;
+              echo $data->query->results->channel->location->country. " -- ";
 
-              ?>
-              <?php
-                echo $data->query->results->channel->lastBuildDate;
-              ?>
+             ?>
 
             </td>
             <td style="padding-left: 8px;">
-              Suhu :
+              Temperature :
 
               <?php
                 echo $data->query->results->channel->item->condition->temp;
@@ -87,17 +82,12 @@
 
               °
             </td>
-            <td style="padding-left: 8px;">
-              Cuaca :
-
-              <?php
-                echo $data->query->results->channel->item->condition->text;
-              ?>
+            
     </div>
     <div class="fl_right">
       <ul>
         <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
-        <li><a href="#">Login</a></li>
+        <li><a href="login/login.php">Login</a></li>
         <li><a href="#">Register</a></li>
       </ul>
     </div>
@@ -125,32 +115,61 @@
     <!-- ################################################################################################ -->
   </nav>
 </div>
-<!-- ################################################################################################ -->
+<?php
+      $json = file_get_contents("https://newsapi.org/v2/everything?q=bencana&from=2018-08-30&sortBy=publishedAt&apiKey=5b125f0256bf4afab3c7d89f897e6c53");
+                          
+                    $data = json_decode($json);
+
+                    $array = array("0");
+
+                    $arrlength = count($array);
+                   
+                    for($x = 0; $x < $arrlength; $x++) { 
+                     $sumber = print_r($data->articles[$array[$x]]->url, true);
+                     $a = print_r($data->articles[$array[$x]]->urlToImage,true);
+                    ?>
 <div class="bgded overlay"  style="background-image:url('images/cabskuy.jpg');">
   <div id="pageintro" class="hoc clear"> 
     <div class="flexslider basicslider">
       <ul class="slides">
         <li>
           <article>
-            <p>Kampung Bojongsoang</p>
-            <h3 class="heading">Favorite destination for domestic tourist</h3>
+            <p><?php echo $data->articles[$array[$x]]->author ?></p>
+            <h3 class="heading"><?php echo $data->articles[$array[$x]]->title ?></h3>
+            
             <footer>
               <ul class="nospace inline pushright">
-                <li><a class="btn" href="#">Visit page</a></li>
+                <li><a class="btn" href="<?php echo $sumber ?>">Visit page</a></li>
                 <li><a class="btn inverse" href="#destinasi">Scroll down</a></li>
               </ul>
+              <?php }      ?>
             </footer>
           </article>
+        <?php
+      $json = file_get_contents("https://newsapi.org/v2/everything?q=pariwisata&from=2018-08-30&sortBy=publishedAt&apiKey=5b125f0256bf4afab3c7d89f897e6c53");
+                          
+                    $data = json_decode($json);
+
+                    $array = array("0");
+
+                    $arrlength = count($array);
+                   
+                    for($x = 0; $x < $arrlength; $x++) { 
+                     $sumber = print_r($data->articles[$array[$x]]->url, true);
+                     $a = print_r($data->articles[$array[$x]]->urlToImage,true);
+                    ?>
         </li>
         <li>
           <article>
-            <p>Perumahan Permata Buah Batu</p>
-            <h3 class="heading">The best regency in Bandung West Java</h3>
+            <p><?php echo $data->articles[$array[$x]]->author ?></p>
+            <h3 class="heading"><?php echo $data->articles[$array[$x]]->title ?></h3>
+           
             <footer>
               <ul class="nospace inline pushright">
-                <li><a class="btn" href="#">Visit Page</a></li>
+                <li><a class="btn" href="<?php echo $sumber ?>">Visit Page</a></li>
                 <li><a class="btn inverse" href="#">Scroll down</a></li>
               </ul>
+               <?php }      ?>
             </footer>
           </article>
         </li>
@@ -160,7 +179,7 @@
             <h3 class="heading">Most visited place by foreign tourists</h3>
             <footer>
               <ul class="nospace inline pushright">
-                <li><a class="btn" href="#">Visit Page</a></li>
+                <li><a class="btn" href="<?php echo $sumber ?>">Visit Page</a></li>
                 <li><a class="btn inverse" href="#">Scroll down</a></li>
               </ul>
             </footer>
@@ -277,6 +296,67 @@
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+
+
+<div id="googleMap" style="width:100%;height:500px;"></div>
+
+<script>
+function myMap() {
+var mapProp= {
+    center:new google.maps.LatLng(-6.914744, 107.609810),
+    zoom:10,
+};
+var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANUvaKs9WmrKVO6t7jGu6Ud1bS0VYTLR8&callback=myMap"></script>
+<div class="wrapper bgded overlay" style="background-image:url('images/batik.png');">
+  <section class="hoc container clear"> 
+  <div class="sectiontitle center">
+      <h3 class="heading">News</h3>
+      <p>The Event and Festival that will be present in West Java</p>
+    </div>
+    <?php
+      $json = file_get_contents("https://newsapi.org/v2/everything?q=tarian&from=2018-08-30&sortBy=publishedAt&apiKey=5b125f0256bf4afab3c7d89f897e6c53");
+                          
+                    $data = json_decode($json);
+
+                    $array = array("0","1","2");
+
+                    $arrlength = count($array);
+                   
+                    for($x = 0; $x < $arrlength; $x++) { 
+                     $sumber = print_r($data->articles[$array[$x]]->url, true);
+                     $a = print_r($data->articles[$array[$x]]->urlToImage,true);
+                    ?>
+
+    <ul class="nospace group center">
+      <li class="">
+        <article><a>
+
+          <h6 class="heading font-x1"><?php echo $data->articles[$array[$x]]->title ?></h6></a>
+          <p><img class="imghover" style="width: 40%" src='<?php echo $a ?>'></p>
+          <p><?php echo $data->articles[$array[$x]]->content ?></p>
+          <p><a href="<?php echo $sumber ?>">Lihat Selengkapnya</a></p>
+          <hr>
+        </article>
+      </li>
+
+      <?php }      ?>   
+</ul>
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+
+    <!-- ################################################################################################ -->
+  </section>
+</div>
+</div>
 <div class="wrapper row3">
   <section class="hoc container clear">
     <div class="sectiontitle center">
@@ -344,80 +424,20 @@
     <!-- ################################################################################################ -->
   </section>
 </div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-
-
-<div id="googleMap" style="width:100%;height:500px;"></div>
-
-<script>
-function myMap() {
-var mapProp= {
-    center:new google.maps.LatLng(-6.914744, 107.609810),
-    zoom:10,
-};
-var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-}
-</script>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANUvaKs9WmrKVO6t7jGu6Ud1bS0VYTLR8&callback=myMap"></script>
-<div class="wrapper bgded overlay" style="background-image:url('images/batik.png');">
-  <section class="hoc container clear"> 
-  <div class="sectiontitle center">
-      <h3 class="heading">Berita</h3>
-      <p>The Event and Festival that will be present in West Java</p>
-    </div>
-    <?php
-      $json = file_get_contents("https://newsapi.org/v2/top-headlines?country=id&category=business&apiKey=57a1fbe936d54400a8b71160c8df3911");
-                          
-                    $data = json_decode($json);
-
-                    $array = array("0","1","2");
-
-                    $arrlength = count($array);
-                   
-                    for($x = 0; $x < $arrlength; $x++) { 
-                     $sumber = print_r($data->articles[$array[$x]]->url, true);
-                     $a = print_r($data->articles[$array[$x]]->urlToImage,true);
-                    ?>
-
-    <ul class="nospace group center">
-      <li class="">
-        <article><a>
-
-          <h6 class="heading font-x1"><?php echo $data->articles[$array[$x]]->author ?></h6></a>
-          <p><img style="width: 40%" src='<?php echo $a ?>'></p>
-          <p><?php echo $data->articles[$array[$x]]->content ?></p>
-          <p><a href="<?php echo $sumber ?>">Lihat Selengkapnya</a></p>
-          <hr>
-        </article>
-      </li>
-
-      <?php }      ?>   
-</ul>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-
-    <!-- ################################################################################################ -->
-  </section>
-</div>
-</div>
 <div>
 <div class="wrapper row4">
   <footer id="footer" class="hoc clear"> 
     <!-- ################################################################################################ -->
     <div class="one_third first">
-      <h6 class="heading">Id porttitor enim elit</h6>
+      <h6 class="heading">Our Location</h6>
       <ul class="nospace btmspace-30 linklist contact">
         <li><i class="fa fa-map-marker"></i>
           <address>
-          Street Name &amp; Number, Town, Postcode/Zip
+          Perumahan Permata Buah Batu, Blok C64, Bandung, Jawa Barat
           </address>
         </li>
-        <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
-        <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
+        <li><i class="fa fa-phone"></i> +62822 1834 7960</li>
+        <li><i class="fa fa-envelope-o"></i> cabskuy@gmail.com</li>
       </ul>
       <ul class="faico clear">
         <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
@@ -429,27 +449,11 @@ var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
       </ul>
     </div>
     <div class="one_third">
-      <h6 class="heading">Elit eros congue nunc</h6>
-      <ul class="nospace linklist">
-        <li>
-          <article>
-            <h2 class="nospace font-x1"><a href="#">Curabitur lacinia neque</a></h2>
-            <time class="font-xs block btmspace-10" datetime="2045-04-06">Friday, 6<sup>th</sup> April 2045</time>
-            <p class="nospace">Purus eget luctus rutrum ex quam semper libero lectus mauris eget [&hellip;]</p>
-          </article>
-        </li>
-        <li>
-          <article>
-            <h2 class="nospace font-x1"><a href="#">Non molestie pulvinar</a></h2>
-            <time class="font-xs block btmspace-10" datetime="2045-04-05">Thursday, 5<sup>th</sup> April 2045</time>
-            <p class="nospace">Quam ut arcu tristique est accumsan pretium nulla ut ullamcorper [&hellip;]</p>
-          </article>
-        </li>
-      </ul>
+      
     </div>
     <div class="one_third">
-      <h6 class="heading">Vulputate justo</h6>
-      <p class="nospace btmspace-30">Elit donec vel tincidunt turpis curabitur ac nibh condimentum finibus orci a.</p>
+      <h6 class="heading">Call Us</h6>
+      <p class="nospace btmspace-30">Enter your email address and your name to receive our information</p>
       <form method="post" action="#">
         <fieldset>
           <legend>Newsletter:</legend>
@@ -466,12 +470,7 @@ var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <div class="wrapper row5">
-  <div id="copyright" class="hoc clear"> 
-    <!-- ################################################################################################ -->
-    <p class="fl_left">Copyright &copy; 2016 - All Rights Reserved - <a href="#">Domain Name</a></p>
-    <p class="fl_right">Template by <a target="_blank" href="http://www.os-templates.com/" title="Free Website Templates">OS Templates</a></p>
-    <!-- ################################################################################################ -->
-  </div>
+  
 </div>
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
