@@ -3,6 +3,7 @@
 <?php
 		require ("Facebook/autoload.php");
 		session_start();
+		require_once __DIR__.'/vendor/autoload.php';
 
 		if(isset($_GET['state'])) {
 		    $_SESSION['FBRLH_state'] = $_GET['state'];
@@ -97,6 +98,12 @@
 						<span class="txt2">
 							or sign up using
 						</span>
+					</div>
+					<div class="login100-form-social flex-c-m">
+					<?php
+ 					 echo "<a href='auth.php'>Login with google</a>";
+					
+					?>
 					</div>
 					<?php
 					if(empty($access_token)) {
