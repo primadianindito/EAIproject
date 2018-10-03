@@ -1,10 +1,12 @@
 <?php
-require_once __DIR__.'/vendor/autoload.php';
-  
+require ("Facebook/autoload.php");
 session_start();
 
-if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
-    $profile = $_SESSION['access_profile'];
+
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -60,18 +62,46 @@ if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
     <div class="fl_right">
       <ul>
         <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
-        
-        <li><?php echo "{$profile['displayName']}";?></li>
+        <?php
+        $fb = new \Facebook\Facebook([
+            'app_id' => '461997810874969',
+            'app_secret' => '1a96dcfcf4726e2a5192d11bfd69a151',
+            'default_graph_version' => 'v3.1',
+            //'default_access_token' => 'EAAGOwhb1RJkBAF9MvQJWYYHFLIFE1ZCcKhQ8nsUebDZBsRhnJyJEHF9CNQY6zkwbaBsuGNWUlzIbaZC1ivW71ZCGVRTouDtmuvYuYygrAosTFb0idJh07tLEuEegF87wHotCB6iZAgXliTDTbA4HzCYOuqWBAfYkdCHVhZBp9444oKlY31ZAHxi6Ti1n2dyoSpC6NMrfvZAdIAZDZD', // optional
+        ]);
+        /*Step 3 : Get Access Token*/
+        $access_token = $fb->getRedirectLoginHelper()->getAccessToken();
+        /*Step 4: Get the graph user*/
+        if(isset($access_token)) {
+
+
+            try {
+                $response = $fb->get('/me',$access_token);
+
+                $fb_user = $response->getGraphUser();
+
+                echo  $fb_user->getName();
+
+
+
+
+                //  var_dump($fb_user);
+            } catch (\Facebook\Exceptions\FacebookResponseException $e) {
+                echo  'Graph returned an error: ' . $e->getMessage();
+            } catch (\Facebook\Exceptions\FacebookSDKException $e) {
+                // When validation fails or other local issues
+                echo 'Facebook SDK returned an error: ' . $e->getMessage();
+            }
+
+        }
+?>
+        <li></li>
         <li><a class="nav-link text-uppercase text-expanded" href="logout.php">Logout</a></li>
-  		
+      
       </ul>
     </div>
 
-    <?php
-        
-        } else {
-            echo "<a href='auth.php'>Login dengan Akun Google</a>";
-        }
+    
 
     ?>
     
@@ -99,7 +129,7 @@ if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
   </nav>
 </div>
 <?php
-      $json = file_get_contents("https://newsapi.org/v2/everything?q=bencana&from=2018-09-01&sortBy=publishedAt&apiKey=5b125f0256bf4afab3c7d89f897e6c53");
+      $json = file_get_contents("https://newsapi.org/v2/everything?q=bencana&from=2018-09-02&sortBy=publishedAt&apiKey=5b125f0256bf4afab3c7d89f897e6c53");
                           
                     $data = json_decode($json);
 
@@ -129,7 +159,7 @@ if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
             </footer>
           </article>
         <?php
-      $json = file_get_contents("https://newsapi.org/v2/everything?q=pariwisata&from=2018-09-01&sortBy=publishedAt&apiKey=5b125f0256bf4afab3c7d89f897e6c53");
+      $json = file_get_contents("https://newsapi.org/v2/everything?q=pariwasata&from=2018-09-02&sortBy=publishedAt&apiKey=5b125f0256bf4afab3c7d89f897e6c53");
                           
                     $data = json_decode($json);
 
@@ -305,7 +335,7 @@ var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
       <p>The Event and Festival that will be present in West Java</p>
     </div>
     <?php
-      $json = file_get_contents("https://newsapi.org/v2/everything?q=tarian&from=2018-09-01&sortBy=publishedAt&apiKey=5b125f0256bf4afab3c7d89f897e6c53");
+      $json = file_get_contents("https://newsapi.org/v2/everything?q=tarian&from=2018-09-02&sortBy=publishedAt&apiKey=5b125f0256bf4afab3c7d89f897e6c53");
                           
                     $data = json_decode($json);
 

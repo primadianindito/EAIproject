@@ -99,7 +99,7 @@ if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
   </nav>
 </div>
 <?php
-      $json = file_get_contents("https://newsapi.org/v2/everything?q=bencana&from=2018-09-01&sortBy=publishedAt&apiKey=5b125f0256bf4afab3c7d89f897e6c53");
+      $json = file_get_contents("https://newsapi.org/v2/everything?q=bencana&from=2018-09-02&sortBy=publishedAt&apiKey=5b125f0256bf4afab3c7d89f897e6c53");
                           
                     $data = json_decode($json);
 
@@ -129,7 +129,7 @@ if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
             </footer>
           </article>
         <?php
-      $json = file_get_contents("https://newsapi.org/v2/everything?q=pariwisata&from=2018-09-01&sortBy=publishedAt&apiKey=5b125f0256bf4afab3c7d89f897e6c53");
+      $json = file_get_contents("https://newsapi.org/v2/everything?q=pariwasata&from=2018-09-02&sortBy=publishedAt&apiKey=5b125f0256bf4afab3c7d89f897e6c53");
                           
                     $data = json_decode($json);
 
@@ -305,7 +305,7 @@ var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
       <p>The Event and Festival that will be present in West Java</p>
     </div>
     <?php
-      $json = file_get_contents("https://newsapi.org/v2/everything?q=tarian&from=2018-09-01&sortBy=publishedAt&apiKey=5b125f0256bf4afab3c7d89f897e6c53");
+      $json = file_get_contents("https://newsapi.org/v2/everything?q=tarian&from=2018-09-02&sortBy=publishedAt&apiKey=5b125f0256bf4afab3c7d89f897e6c53");
                           
                     $data = json_decode($json);
 

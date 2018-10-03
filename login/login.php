@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-		require ("Facebook/autoload.php");
+		
 		session_start();
 		require_once __DIR__.'/vendor/autoload.php';
-
+		require ("Facebook/autoload.php");
 		if(isset($_GET['state'])) {
 		    $_SESSION['FBRLH_state'] = $_GET['state'];
 		}
@@ -41,10 +41,10 @@
 			<?php
 			  /*Step 1: Enter Credentials*/
 				$fb = new \Facebook\Facebook([
-				    'app_id' => '438439236682905',
-				    'app_secret' => '36e328e57b0290675e7ad44a7830091c',
-				    'default_graph_version' => 'v2.10',
-				    'default_access_token' => 'EAAGOwhb1RJkBAF9MvQJWYYHFLIFE1ZCcKhQ8nsUebDZBsRhnJyJEHF9CNQY6zkwbaBsuGNWUlzIbaZC1ivW71ZCGVRTouDtmuvYuYygrAosTFb0idJh07tLEuEegF87wHotCB6iZAgXliTDTbA4HzCYOuqWBAfYkdCHVhZBp9444oKlY31ZAHxi6Ti1n2dyoSpC6NMrfvZAdIAZDZD', // optional
+				    'app_id' => '461997810874969',
+				    'app_secret' => '1a96dcfcf4726e2a5192d11bfd69a151',
+				    'default_graph_version' => 'v3.1',
+				    //'default_access_token' => 'EAAGOwhb1RJkBAF9MvQJWYYHFLIFE1ZCcKhQ8nsUebDZBsRhnJyJEHF9CNQY6zkwbaBsuGNWUlzIbaZC1ivW71ZCGVRTouDtmuvYuYygrAosTFb0idJh07tLEuEegF87wHotCB6iZAgXliTDTbA4HzCYOuqWBAfYkdCHVhZBp9444oKlY31ZAHxi6Ti1n2dyoSpC6NMrfvZAdIAZDZD', // optional
 				]);
 				?>
 				
@@ -108,39 +108,16 @@
 					<?php
 					if(empty($access_token)) {
 
-						?>
+					?>	
 					<div class="login100-form-social flex-c-m">
 					<?php
-						 echo "<a href='{$fb->getRedirectLoginHelper()->getLoginUrl("https://localhost/eai1/index.php")}'>Login with Facebook </a>"; 
+						 echo "<a href='{$fb->getRedirectLoginHelper()->getLoginUrl("https://localhost/eai1/login/logedfb.php")}'>Login with Facebook </a>"; 
 
 						}
-						/*Step 3 : Get Access Token*/
-$access_token = $fb->getRedirectLoginHelper()->getAccessToken();
-
-
-/*Step 4: Get the graph user*/
-if(isset($access_token)) {
-
-
-    try {
-        $response = $fb->get('/me',$access_token);
-
-        $fb_user = $response->getGraphUser();
-
-        echo  $fb_user->getName();
+						
 
 
 
-
-        //  var_dump($fb_user);
-    } catch (\Facebook\Exceptions\FacebookResponseException $e) {
-        echo  'Graph returned an error: ' . $e->getMessage();
-    } catch (\Facebook\Exceptions\FacebookSDKException $e) {
-        // When validation fails or other local issues
-        echo 'Facebook SDK returned an error: ' . $e->getMessage();
-    }
-
-}
 
 						 ?>
 							
