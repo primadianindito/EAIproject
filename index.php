@@ -80,7 +80,7 @@
   </nav>
 </div>
 <?php
-      $json = file_get_contents("https://newsapi.org/v2/everything?q=bencana&from=2018-09-02&sortBy=publishedAt&apiKey=5b125f0256bf4afab3c7d89f897e6c53");
+      $json = file_get_contents("https://newsapi.org/v2/everything?q=bencana&from=2018-10-07&sortBy=publishedAt&apiKey=5b125f0256bf4afab3c7d89f897e6c53");
                           
                     $data = json_decode($json);
 
@@ -110,7 +110,7 @@
             </footer>
           </article>
         <?php
-      $json = file_get_contents("https://newsapi.org/v2/everything?q=pariwisata&from=2018-09-02&sortBy=publishedAt&apiKey=5b125f0256bf4afab3c7d89f897e6c53");
+      $json = file_get_contents("https://newsapi.org/v2/everything?q=bencana&from=2018-10-07&sortBy=publishedAt&apiKey=5b125f0256bf4afab3c7d89f897e6c53");
                           
                     $data = json_decode($json);
 
@@ -139,7 +139,7 @@
         </li>
         <li>
           <article>
-            <p>Saritem</p>
+            <p>Dewi Tasya</p>
             <h3 class="heading">Most visited place by foreign tourists</h3>
             <footer>
               <ul class="nospace inline pushright">
@@ -172,7 +172,7 @@
           <div class="txtwrap">
             <h6 class="heading">Bandung</h6>
             <p>The highland city of Bandung is only a short 2.5 hours' drive southeast of Jakarta via toll road, and is the overwhelming destination of choice for Jakarta residents to get [&hellip;]</p>
-            <footer><a href="#">More &raquo;</a></footer>
+            <footer><a href="pages/bandung.php">More &raquo;</a></footer>
           </div>
         </article>
       </li>
@@ -286,7 +286,7 @@ var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
       <p>The Event and Festival that will be present in West Java</p>
     </div>
     <?php
-      $json = file_get_contents("https://newsapi.org/v2/everything?q=tarian&from=2018-09-02&sortBy=publishedAt&apiKey=5b125f0256bf4afab3c7d89f897e6c53");
+      $json = file_get_contents("https://newsapi.org/v2/everything?q=pariwisata&from=2018-10-07&sortBy=publishedAt&apiKey=5b125f0256bf4afab3c7d89f897e6c53");
                           
                     $data = json_decode($json);
 
