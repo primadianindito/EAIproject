@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/login/vendor/animsition/css" />
+      <excludeFolder url="file://$MODULE_DIR$/login/vendor/animsition/js" />
+      <excludeFolder url="file://$MODULE_DIR$/login/vendor/bootstrap/css" />
+      <excludeFolder url="file://$MODULE_DIR$/login/vendor/bootstrap/js" />
+      <excludeFolder url="file://$MODULE_DIR$/login/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/login/vendor/firebase/php-jwt" />
+      <excludeFolder url="file://$MODULE_DIR$/login/vendor/google/apiclient" />
+      <excludeFolder url="file://$MODULE_DIR$/login/vendor/google/apiclient-services" />
+      <excludeFolder url="file://$MODULE_DIR$/login/vendor/google/auth" />
+      <excludeFolder url="file://$MODULE_DIR$/login/vendor/guzzlehttp/guzzle" />
+      <excludeFolder url="file://$MODULE_DIR$/login/vendor/guzzlehttp/promises" />
+      <excludeFolder url="file://$MODULE_DIR$/login/vendor/guzzlehttp/psr7" />
+      <excludeFolder url="file://$MODULE_DIR$/login/vendor/monolog/monolog" />
+      <excludeFolder url="file://$MODULE_DIR$/login/vendor/phpseclib/phpseclib" />
+      <excludeFolder url="file://$MODULE_DIR$/login/vendor/psr/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/login/vendor/psr/http-message" />
+      <excludeFolder url="file://$MODULE_DIR$/login/vendor/psr/log" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

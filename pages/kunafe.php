@@ -7,11 +7,12 @@ $maxResults = 1;
 
 $videoList = json_decode(file_get_contents('https://www.googleapis.com/youtube/v3/search?order=date&part=snippet&channelId='.$channelID.'&maxResults='.$maxResults.'&key='.$API_key.''));
 ?>
+
 <html>
 <?php
 require ("../login/Facebook/autoload.php");
 session_start();
-
+include_once "koneksi.php";
 ?>
 <head>
 <title>Cabskuy Food</title>
@@ -32,7 +33,7 @@ session_start();
           $queryss = @unserialize (file_get_contents('http://ip-api.com/php/'));
           if ($queryss && $queryss['status'] == 'success') {
           }
-          $json = file_get_contents("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22".$queryss['city']."%22)and%20u%3D%22c%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys");
+          $json = file_get_contents("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22bandung%22)and%20u%3D%22c%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys");
                 
           $data = json_decode($json);
 
@@ -85,14 +86,15 @@ session_start();
   <main class="hoc container clear"> 
     <ul class="nospace group services">
       <div class="txtwrap">
+
 		      <?php
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, "https://developers.zomato.com/api/v2.1/search?q=BandungKunafe&start=0&count=1");
+		curl_setopt($ch, CURLOPT_URL, "https://developers.zomato.com/api/v2.1/search?q=bandung%20kunafe&start=0&count=1");
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
 		$headers = array(
 		  "Accept: application/json",
-		  "User-Key: 7e65f6409e8d39fa84c0a49a5c77fc06"
+		  "User-Key: e8e0b2ab84a25a1c71c84012ce2de7d6"
 		  );
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 		$result = curl_exec($ch);
@@ -119,11 +121,11 @@ session_start();
 		<?php
 			echo "Prices Range : ".@$restaurant->restaurant->average_cost_for_two ." average for ".@$restaurant->restaurant->price_range." peoples<br>";
 			echo "Operational Hour : 07.00 AM - 10.00 PM <hr><p> </h2>";
-			echo "<h4>Another Services : ".@$restaurant->restaurant->opentable_support."<p></div>"; 
+			echo "<h4>Open Table Supports : ".@$restaurant->restaurant->opentable_support."<p></div>"; 
 		?>
 		<div id="gallery">
         <figure>
-          <header class="heading">Gallery of Bandung</header>
+          <header class="heading">Gallery of Bandung Kunafe</header>
           <ul class="nospace clear">
             <li class="one_quarter first"><a href="#"><img src="https://media-cdn.tripadvisor.com/media/photo-s/0e/8c/e9/6a/alun-alun-kota-bandung.jpg" alt=""></a></li>
             <li class="one_quarter"><a href="#"><img src="http://www.infobdg.com/v2/wp-content/uploads/2016/09/alun-alun-1024x683.jpg" alt=""></a></li>
@@ -191,33 +193,79 @@ session_start();
 
 				Likes <?php  echo @$user_reviews->review->likes; ?>
 					<td> <?php echo "<h6>".@$user_reviews->review->review_text."</h6> ";?></td></tr>
-				
+				</table>
 				<?php
 			}
 
 
+				include('koneksi.php');
+			      // jalankan query untuk menampilkan semua data diurutkan berdasarkan nim
+			      $query = "SELECT * FROM komen";
+			      $result = mysqli_query($conn, $query);
+			      //mengecek apakah ada error ketika menjalankan query
+			      if(!$result){
+			        die ("Query Error: ".mysqli_errno($host).
+			           " - ".mysqli_error($host));
+			      }
+			      
+			      while($data = mysqli_fetch_assoc($result))
+			      {
+			       echo "<h3>$data[nama]</h3><br> Rating : $data[rating] of 5 <br>";
+			       echo "<h6>$data[komen]</h6>";
+
+			      }
+
+
 				?>
-				</table>	
-			<form>
-			<h2> Leave a Comment </h2> <br>
+				
+				<br>	
+
+				<?php
+
+                $id = $_GET['id'];
+                $check_data = mysqli_query($conn, "SELECT * from data_restoran where restoran_id = '$id'");
+                if(mysqli_num_rows($check_data)>0){
+                    while($data = mysqli_fetch_array($check_data)){
+
+            ?>
+
+			<form method="POST" action="komenproses.php">
+			<h2> Add your experience below! </h2> <br>
 			<table>
 			<tr>
 			<td>
-			    
+			    <input type="text" name="nr" style="display: none;" value="<?php echo $data['nama_restoran'];?>">
+            	<input type="text" name="ri" style="display: none;" value="<?php echo $id;?>">
 			    <input type="text" name="name" maxlength="100" placeholder="Enter Your Full Name Here" style="padding: 5px">
 			</td></tr>
 			<tr>
 			<td>
 			    <input type="text" name="email" maxlength="100" placeholder="Enter Your Email Here">
 			</td></tr>
-			<tr>
+            <tr>
 			<td>
 			    <input type="text" name="komen" maxlength="500" placeholder="Enter your comment here" style="height: 100px; word-wrap: all;"></input>
 			</td></tr>
+			<tr>
+                    <td colspan="">Rating </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="rating" value="5" checked> Baik Sekali<br>
+                        <input type="radio" name="rating" value="4"> Baik<br>
+                        <input type="radio" name="rating" value="3"> Sedang<br>
+                        <input type="radio" name="rating" value="2"> Kurang baik<br>
+                        <input type="radio" name="rating" value="1"> Sangat Kurang Baik  
+                    </td>
+                </tr>
 			</table>
-				<input type="submit" value="Send" style="width: 300px; float: right;" />
 				
-			
+				<input name="submit" type="submit" value="Send" style="width: 300px; float: right;" />
+				
+			<?php
+		}
+	}
+		?>
 			
 			
 			

@@ -25,7 +25,7 @@ $videoList = json_decode(file_get_contents('https://www.googleapis.com/youtube/v
           $queryss = @unserialize (file_get_contents('http://ip-api.com/php/'));
           if ($queryss && $queryss['status'] == 'success') {
           }
-          $json = file_get_contents("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22".$queryss['city']."%22)and%20u%3D%22c%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys");
+          $json = file_get_contents("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22bandung%22)and%20u%3D%22c%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys");
                 
           $data = json_decode($json);
 
@@ -109,16 +109,82 @@ $videoList = json_decode(file_get_contents('https://www.googleapis.com/youtube/v
       <!-- ################################################################################################ -->
       <h1>Bandung</h1>
       <img class="imgr borderedbox inspace-5" src="https://4.bp.blogspot.com/-Z9ASJdsjjIs/WHJj6uEOXjI/AAAAAAAADX8/h1wGF75YxG4W92SrhPREZeasp5IDKQUfgCLcB/s1600/braga_malam.jpg" alt="" style="height: 250px">
-      <p>Bandung is the capital city of West Java, and the third largest city in Indonesia after Jakarta and Surabaya. Nicknamed Parijs van Java (Paris of Java) by the Dutch for its resemblance to Paris and European atmosphere back in colonial times, Bandung also earned another nickname as Kota Kembang,
-      literally meaning the Flower City since Bandung used to have a lot of flowers.
-      Being located at the altitude of 768m and surrounded by the lush and beautiful Parahyangan mountains makes the climate mild and pleasant. The city has been well known for its universities, fashionable clothing and as a great place for gastronomic adventure. Nowadays, Bandung has become a very popular weekend escape for Jakartans, who would crowd the city on weekends and national holidays.
       <p>
-      Bandung, the capital of West Java province, located about 180 kilometres (110 mi) southeast of Jakarta, is the third largest city in Indonesia. Its elevation is 768 metres (2,520 ft) above sea level and is surrounded by up to 2,400 metres (7,900 feet) high Late Tertiary and Quaternary volcanic terrain.[7] The 400 km2 flat of central Bandung plain is situated in the middle of 2,340.88 square kilometres (903.82 sq mi) wide of the Bandung Basin; the basin comprises Bandung, the Cimahi city, part of Bandung Regency, part of West Bandung Regency, and part of Sumedang Regency.[8] The basin's main river is the Citarum; one of its branches, the Cikapundung, divides Bandung from north to south before it merges with Citarum again in Dayeuhkolot. The Bandung Basin is an important source of water for potable water, irrigation, and fisheries, with its 6,147 million m3 (217.1 billion cu ft) of groundwater being a major reservoir for the city.[8] The northern section of Bandung is hillier than other parts of the city, and the distinguished truncated flat-peak shape of the Tangkuban Perahu volcano (Tangkuban Perahu literally means 'upside-down boat') can be seen from the city to the north. Long-term volcanic activity has created fertile andisol soil in the north, suitable for intensive rice, fruit, tea, tobacco, and coffee plantations. In the south and east, alluvial soils deposited by the Cikapundung river predominate.
+      <?php
+      include('koneksi.php');
+      // jalankan query untuk menampilkan semua data diurutkan berdasarkan nim
+      $query = "SELECT * FROM kota";
+      $result = mysqli_query($host, $query);
+      //mengecek apakah ada error ketika menjalankan query
+      if(!$result){
+        die ("Query Error: ".mysqli_errno($host).
+           " - ".mysqli_error($host));
+      }
+      
+      while($data = mysqli_fetch_assoc($result))
+      {
+        // mencetak / menampilkan data
+        
+        echo "<td>$data[deskripsi]</td>"; 
+      }
+
+      ?>
 
 
       <br>
 
       </div>
+       
+        <div class="wrapper bgded overlay" style="background-image:url('../images/angklung.jpeg');">
+        <?php
+          include('koneksi.php');
+      // jalankan query untuk menampilkan semua data diurutkan berdasarkan nim
+      $query = "SELECT * FROM mytable LIMIT 1";
+      $result = mysqli_query($host, $query);
+      //mengecek apakah ada error ketika menjalankan query
+      if(!$result){
+        die ("Query Error: ".mysqli_errno($host).
+           " - ".mysqli_error($host));
+      }
+      
+      while($data = mysqli_fetch_assoc($result))
+      {
+        ?>
+         <section class="hoc container clear"> 
+    <!-- ################################################################################################ -->
+    <div class="sectiontitle center">
+      <h3 class="heading">Another Places in Bandung</h3>
+      <p>Enjoy your trip</p>
+    </div>
+    <ul class="nospace group center">
+      <li class="one_third first">
+        <article><a href="#">
+          <h6 class="heading font-x1"><?php echo "$data[nama]";?></h6></a>
+          <p><?php echo "$data[deskripsi]";?>.[&hellip;]</p>
+          <footer><a href="#">Read More &raquo;</a></footer>
+        </article>
+      </li>
+      <li class="one_third">
+        <article><a href="#">
+          <h6 class="heading font-x1"><?php echo "$data[nama]";?></h6></a>
+          <p>In the second part of this year, the exotic tropical island of Nias in North Sumatra will come alive with incredible excitement on the holding of not one but two really special events: The Nias Pro 2018 World Surf League Qualifying Series on August 24th to 28th 2018, and The Ya’ahowu Festival on November 16th to 20th, 2018. [&hellip;]</p>
+          <footer><a href="#">Read More &raquo;</a></footer>
+        </article>
+      </li>
+      <li class="one_third">
+        <article><a href="#">
+          <h6 class="heading font-x1"><?php echo "$data[nama]";?></h6></a>
+          <p>The world’s top wave riders are currently in Indonesia’s West Nusa Tenggara Province to compete to be the best in conquering the most challenging waves at Yoyo’s Spot at Sekongkang Sub-district,  in the West Sumbawa AMNT Pro 2018 Surfing Competition, taking place from 8th to 12th  [&hellip;]</p>
+          <footer><a href="#">Read More &raquo;</a></footer>
+        </article> 
+      </li>
+    </ul>
+    </section>
+    <?php
+  }
+
+?>
+    </div>
       <div>
         <?php
         foreach($videoList->items as $item){
@@ -192,17 +258,7 @@ s.setAttribute('data-timestamp', +new Date());
 </div>
 <!-- ################################################################################################ -->
 <div>
-  <script>
-    (function(){
-      // Query the TourCMS API
-    $result = $tourcms->list_channels();
-
-    // Loop through each channel
-    foreach($result as $channel) {
-      // Print out the channel name
-      print $channel->channel_name.'<br />';
-    }
-  </script>
+  
 </div>
 <div>
 <div class="wrapper row4">

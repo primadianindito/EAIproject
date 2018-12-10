@@ -1,0 +1,73 @@
+{
+	"provinsi":
+	{
+		"32":
+		{
+		"nama": "Jawa Barat",
+			"objek_pariwisata":
+			[
+				{
+					"nama" : "Waduk Cirata",
+					"gambar" : "1.jpg"
+				},
+				{
+					"nama" : "Kawah Putih",
+					"gambar" : "2.jpg"
+				},
+				{
+					"nama" : "Observatorium Bosscha",
+					"gambar" : "3.jpg"
+				},
+				{
+					"nama" : "Puncak-Kabupaten Bogor",
+					"gambar" : ""
+				},
+				{
+					"nama" : "Kebun Raya Cibodas",
+					"gambar" : ""
+				},
+				{
+					"nama" : "Taman Bunga Nusantara",
+					"gambar" : ""
+				},
+				{
+					"nama" : "Taman Wisata Gunung Gede Pangrango",
+					"gambar" : ""
+				},
+				{
+					"nama" : "Keraton Kasepuhan Cirebon",
+					"gambar" : ""
+				}
+			],
+			
+			"makanan_khas":
+			[
+				{
+					"nama" : "Batagor",
+					"deskripsi" : "makanan dari daerah Sunda yang sudah menyebar hampir ke seluruh Indonesia. Makanan ini dibuat dari tahu yang berisi bakso dan dibungkus dengan tepung lalu digoreng, disajikan dengan sambal kacang",
+					"gambar" : "1.jpg"
+				},
+				{
+					"nama" : "Cireng",
+					"deskripsi" : "makanan ringan yang berasal dari daerah Sunda yang dibuat dengan cara menggoreng campuran adonan yang berbahan utama tepung kanji atau tapioka. Bahan makanan ini antara lain terdiri dari tepung kanji, tepung terigu, air, merica bubuk, garam, bawang putih, kedelai, daun bawang dan minyak goreng.",
+					"gambar" : "2.jpg"
+				},
+				{
+					"nama" : "Combro",
+					"deskripsi" : "Terbuat dari parutan singkong yang bagian dalamnya diisi dengan sambal oncom kemudian digoreng, karena itulah dinamai combro yang merupakan kependekan dari oncom di jero (bahasa Sunda, artinya: oncom di dalam). Bentuknya bulat lonjong. Makanan ini enak disantap saat hangat.",
+					"gambar" : "3.jpg"
+				},
+				{
+					"nama" : "Misro",
+					"deskripsi" : "makanan khas dari Jawa Barat yang terbuat dari parutan singkong yang bagian dalamnya diisi dengan gula merah kemudian digoreng, karena itulah dinamai Misro yang merupakan kependekan dari amis di jero (bahasa Sunda, artinya: manis di dalam). Bentuknya bulat dan makanan ini enak disantap saat hangat",
+					"gambar" : "4.jpg"
+				},
+				{
+					"nama" : "Opak",
+					"deskripsi" : "makanan khas Sunda daerah Jawa Barat yang terbuat dari tepung beras. Nutrisi yang terkandung dalam opak adalah karbohidrat. Bahan dasar pembuatan opak adalah tepung beras, garam, gula, dan bumbu bumbu penyedap lainnya. Kemudian bahan dasar dicampur menjadi sebuah adonan. Adonan kemudian dikeringkan. Setelah kering kemudian dipanggang di atas bara api.",
+					"gambar" : "5.jpg"
+				}
+			]
+		}
+	}
+}

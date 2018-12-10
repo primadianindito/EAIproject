@@ -3,7 +3,9 @@
 <?php
 require ("../login/Facebook/autoload.php");
 session_start();
-
+include_once "koneksi.php";
+	
+$results = mysqli_query($conn, "SELECT * from input_resto");
 ?>
 <head>
 <title>Food And Drinks</title>
@@ -18,16 +20,13 @@ session_start();
   <div id="topbar" class="hoc clear"> 
     
     <div class="fl_left">
-    <?php
-          $queryss = @unserialize (file_get_contents('http://ip-api.com/php/'));
-          if ($queryss && $queryss['status'] == 'success') {
-          }
-          $json = file_get_contents("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22".$queryss['city']."%22)and%20u%3D%22c%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys");
+     <?php
+          $wow = @unserialize (file_get_contents('http://ip-api.com/php/'));
+         
+          $json = file_get_contents("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22bandung%22)and%20u%3D%22c%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys");
                 
           $data = json_decode($json);
 
-          ?>
-     <?php
 
               echo $data->query->results->channel->location->city . ", ";
               echo $data->query->results->channel->location->region. ", ";
@@ -73,6 +72,8 @@ session_start();
       </li>
       <li><a href="kunafe.php">Most Visited</a>
       </li>
+       <li><a href="userInput.html">Tambahkan Restauran</a>
+      </li>
       <li class="fl_right">  <p>
       <input class="btmspace-15" type="search" value="" placeholder=" Search...." style="font-size: 15px; border-radius: 10%">
           </ul>
@@ -113,15 +114,30 @@ session_start();
 			$zomrestaurants = $zomdata->restaurants;
 			//echo "<pre>"; print_r($zomrestaurants); echo "</pre>";
 			    
-			foreach ($zomrestaurants as $restaurant) {
-			  echo "<h3>".@$restaurant->restaurant->name."</h3>";
-			  echo "Restaurant ID: ".@$restaurant->restaurant->id."<br/>";
-			  echo "User rating: ".@$restaurant->restaurant->user_rating->rating_text."( ".@$restaurant->restaurant->user_rating->aggregate_rating."/5 ) Depending upon ".@$restaurant->restaurant->user_rating->votes." votes<br/>";
-			
-			  echo @$restaurant->restaurant->location->address.", ".@$restaurant->restaurant->location->city." <p> <a href='".@$restaurant->restaurant->url."'>Visit restaurant page</a><br/>";
-			  echo "<br/><hr>";
-			  //echo "<pre>"; print_r($restaurant->restaurant); echo "</pre>";
+			foreach ($zomrestaurants as $restaurant) { ?>
+
+			<form method="POST" action="resto_process.php">
+			  <h3><input style="width: 60%; border: none" type="text" name="nr" value="<?php echo @$restaurant->restaurant->name; ?>" readonly></h3>
+			  Restoran ID: <input style="width: 20%; border: none" type="text" name="rid" value="<?php echo @$restaurant->restaurant->id; ?>" readonly>
+			  User Rating: <input style="width: 100%; border: none" type="text" name="ur" value="<?php echo @$restaurant->restaurant->user_rating->rating_text; ?> ( <?php echo @$restaurant->restaurant->user_rating->aggregate_rating; ?>/5 ) Depending upon <?php echo @$restaurant->restaurant->user_rating->votes; ?> votes" readonly>
+			  <input style="width: 100%; border: none" type="text" name="alamat" value="<?php echo @$restaurant->restaurant->location->address; ?>, <?php echo @$restaurant->restaurant->location->city; ?>" readonly> <p>
+			  <input class="btn btn-primary" type="submit" name="Submit" value="Lihat detail restoran disini">
+			  <br><br>
+			  </form>
+			 <?php
 			}
+			?>
+
+			<?php
+//			echo $results;
+			while ($post = mysqli_fetch_array($results)){
+			    foreach ($results as $a){
+			        echo "<h3>".$a['nama']."</h3>";
+			        echo "User ID: ".$a['rate']."<br/>";
+			        echo "Alamat: ".$a['alamat']."<br><hr>";
+
+                }
+            }
 			?>
 			
 			</ul>
